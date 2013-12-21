@@ -6,7 +6,7 @@ Noise
 				octaves = 6
 				frequency = 1
 				amplitude = 1
-				lacunarity = 2
+				lacunarity = 1.89783
 				gain = 0.65
 				offset = 0
 				h = 0

@@ -2,7 +2,7 @@ Noise
 	Generator
 		Fractal
 			Billow
-				h = 1
+				h = 0
 				gain = 0.5
 
 				get2(x, y)
@@ -19,7 +19,7 @@ Noise
 					y *= frequency
 
 					for(i = 0, i < octaves, i ++)
-						signal = source.get2(x, y)
+						signal = (source.get2(x, y) + offset) * weights[i + 1]
 						signal = 2 * abs(signal) - 1
 						value += signal * g
 
@@ -47,7 +47,7 @@ Noise
 					z *= frequency
 
 					for(i = 0, i < octaves, i ++)
-						signal = source.get3(x, y, z)
+						signal = (source.get3(x, y, z) + offset) * weights[i + 1]
 						signal = 2 * abs(signal) - 1
 						value += signal * g
 

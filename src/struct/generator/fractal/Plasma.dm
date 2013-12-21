@@ -4,6 +4,7 @@ Noise
 			Plasma
 				h = 1
 				gain = 0.5
+				offset = 0.8
 
 				get2(x, y)
 					x += seed
@@ -19,7 +20,7 @@ Noise
 					y *= frequency
 
 					for(i = 0, i < octaves, i ++)
-						n = source.get2(x, y)
+						n = (source.get2(x, y) + offset) * weights[i + 1]
 
 						sum += n * amp
 						amp *= gain
@@ -45,7 +46,7 @@ Noise
 					z *= frequency
 
 					for(i = 0, i < octaves, i ++)
-						n = source.get3(x, y, z)
+						n = (source.get3(x, y, z) + offset) * weights[i + 1]
 
 						sum += n * amp
 						amp *= gain
