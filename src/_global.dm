@@ -67,6 +67,12 @@ The functions below are not meant to be used by the library user. They are only 
 */
 
 proc
+	__tan(x)
+		return sin(x) / cos(x)
+
+	__arctan(x)
+		return arccos(1 / sqrt(1 + x * x))
+
 	__distanceEuclidean(dx, dy, dz) // Euclidean distance metric for cellular noise
 		return (dx * dx + dy * dy + dz * dz)
 
