@@ -11,10 +11,6 @@ proc
 	SIGNAL_DISABLE_DLL() SIGNAL_USE_DLL = FALSE
 	SIGNAL_ENABLE_DLL() SIGNAL_USE_DLL = TRUE
 
-#define __FNV_16_PRIME  3697
-#define __FNV_16_OFFSET 85
-#define __FNV_MASK_8    ((1 << 8) - 1)
-
 #define __DISTANCE_EUCLIDEAN /proc/__distanceEuclidean
 #define __DISTANCE_MANHATTAN /proc/__distanceManhattan
 #define __DISTANCE_CHEBYSHEV /proc/__distanceChebyshev
@@ -90,38 +86,26 @@ proc
 	__dot3(list/arr, a, b, c) // calculate dot product for a three element array
 		return a * arr[1] + b * arr[2] + c * arr[3]
 
+	__simplexPerm(x)
+		return __simplex_perm_lut[(x & 255) + 1]
+
+	__simplexHash2(x, y, seed)
+		return __simplexPerm(x + __simplexPerm(y) + __simplexPerm(seed))
+
+	__simplexHash3(x, y, z, seed)
+		return __simplexPerm(x + __simplexPerm(y) + __simplexPerm(z) + __simplexPerm(seed))
+
 	__hash2(x, y, seed) // compute a hash (FNV-1A) of x, y coordinates and seed and xor fold it down to 8 bits
-		#ifndef DISABLE_DLL_OPTIMIZATION
+		if(SIGNAL_USE_DLL)
+			return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16)))
 
-		return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16)))
-
-		#else
-
-		. = __FNV_16_OFFSET
-		. ^= x; . *= __FNV_16_PRIME
-		. ^= y; . *= __FNV_16_PRIME
-		. ^= seed; . *= __FNV_16_PRIME
-
-		return ((. >> 8) ^ (. & __FNV_MASK_8))
-
-		#endif
+		return __simplexHash2(x, y, seed)
 
 	__hash3(x, y, z, seed) // compute a hash (FNV-1A) of x, y, z coordinates and seed and xor fold it down to 8 bits
-		#ifndef DISABLE_DLL_OPTIMIZATION
+		if(SIGNAL_USE_DLL)
+			return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH3)(num2text(x, 16), num2text(y, 16), num2text(z, 16), num2text(seed, 16)))
 
-		return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH3)(num2text(x, 16), num2text(y, 16), num2text(z, 16), num2text(seed, 16)))
-
-		#else
-
-		. = __FNV_16_OFFSET
-		. ^= x; . *= __FNV_16_PRIME
-		. ^= y; . *= __FNV_16_PRIME
-		. ^= z; . *= __FNV_16_PRIME
-		. ^= seed; . *= __FNV_16_PRIME
-
-		return ((. >> 8) ^ (. & __FNV_MASK_8))
-
-		#endif
+		return __simplexHash3(x, y, z, seed)
 
 	__valueNoise2(x, y, ix, iy, seed) // calculate 2D value noise
 		return (__hash2(ix, iy, seed) / 255) * 2 - 1
