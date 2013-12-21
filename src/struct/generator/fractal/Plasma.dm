@@ -1,7 +1,7 @@
 Noise
 	Generator
 		Fractal
-			FBM
+			Plasma
 				h = 1
 				gain = 0.5
 
