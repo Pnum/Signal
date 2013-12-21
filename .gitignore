@@ -1,3 +1,5 @@
 *.int
 *.dyn.rsc
 *.lk
+*.rsc
+*.dmb
