@@ -1,0 +1,55 @@
+// DM Environment file for Signal.dme.
+// All manual changes should be made outside the BEGIN_ and END_ blocks.
+// New source code should be placed in .dm files: choose File/New --> Code File.
+
+// BEGIN_INTERNALS
+// END_INTERNALS
+
+// BEGIN_FILE_DIR
+#define FILE_DIR .
+// END_FILE_DIR
+
+// BEGIN_PREFERENCES
+#define DEBUG
+// END_PREFERENCES
+
+// BEGIN_INCLUDE
+#include "src\_global.dm"
+#include "src\struct\Noise.dm"
+#include "src\struct\combiner\Add.dm"
+#include "src\struct\combiner\Average.dm"
+#include "src\struct\combiner\Combiner.dm"
+#include "src\struct\combiner\Max.dm"
+#include "src\struct\combiner\Min.dm"
+#include "src\struct\combiner\Multiply.dm"
+#include "src\struct\combiner\Power.dm"
+#include "src\struct\generator\Checkerboard.dm"
+#include "src\struct\generator\Cylinders.dm"
+#include "src\struct\generator\Generator.dm"
+#include "src\struct\generator\Grad.dm"
+#include "src\struct\generator\GradValue.dm"
+#include "src\struct\generator\Simplex.dm"
+#include "src\struct\generator\Spheres.dm"
+#include "src\struct\generator\Value.dm"
+#include "src\struct\generator\White.dm"
+#include "src\struct\generator\cellular\Cellular.dm"
+#include "src\struct\generator\cellular\Voronoi.dm"
+#include "src\struct\generator\cellular\Worley.dm"
+#include "src\struct\generator\fractal\Billow.dm"
+#include "src\struct\generator\fractal\FBM.dm"
+#include "src\struct\generator\fractal\Fractal.dm"
+#include "src\struct\generator\fractal\RidgedMulti.dm"
+#include "src\struct\modifier\Abs.dm"
+#include "src\struct\modifier\Clamp.dm"
+#include "src\struct\modifier\Displace.dm"
+#include "src\struct\modifier\Interpolate.dm"
+#include "src\struct\modifier\Invert.dm"
+#include "src\struct\modifier\Modifier.dm"
+#include "src\struct\modifier\Multiply.dm"
+#include "src\struct\modifier\Rotate.dm"
+#include "src\struct\modifier\Scale.dm"
+#include "src\struct\modifier\Terrace.dm"
+#include "src\struct\modifier\Threshold.dm"
+#include "src\struct\modifier\Translate.dm"
+#include "src\struct\modifier\Turbulence.dm"
+// END_INCLUDE

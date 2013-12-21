@@ -1,0 +1,59 @@
+Noise
+	var
+		seed = 0
+		list/sources = list()
+		Noise/source = null
+		source_count_req = 0
+
+	proc
+		setSources(list/_sources)
+			ASSERT(length(_sources) <= source_count_req || (source_count_req < 0))
+			sources = _sources
+
+		setSource(Noise/_source)
+			source = _source
+			if(length(sources))
+				sources[1] = source
+
+		addSource(Noise/_source)
+			ASSERT(length(sources) < source_count_req || (source_count_req < 0))
+			sources += _source
+
+			if(length(sources) == 1)
+				source = sources[1]
+
+		overrideSource(n, Noise/_source)
+			ASSERT(n > 0)
+			sources[n] = _source
+
+		clearSources()
+			sources = list()
+
+		removeSource(Noise/_source)
+			sources -= _source
+
+			if(source == _source) source = null
+
+		setSeed(_seed)
+			if(seed < __MIN_SEED) seed = __MIN_SEED
+			if(seed > __MAX_SEED) seed = __MAX_SEED
+			seed = round(_seed)
+
+		randSeed()
+			setSeed(rand(-65535, 65535))
+
+		getSeed()
+			return seed
+
+		getSource()
+			return source
+
+		getSources()
+			return sources
+
+		getSourceCountReq()
+			return source_count_req
+
+		get2(x, y)
+
+		get3(x, y, z)
