@@ -3,7 +3,7 @@ Noise
 		Simplex
 			get2(x, y)
 				if(SIGNAL_USE_DLL)
-					return text2num(call(SIGNAL_DLL_PATH, __DLL_SIMPLEX2)(num2text(x), num2text(y), num2text(seed)))
+					return text2num(call(SIGNAL_DLL_PATH, __DLL_SIMPLEX2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16)))
 
 				x += seed
 				y += seed
@@ -43,7 +43,7 @@ Noise
 
 			get3(x, y, z)
 				if(SIGNAL_USE_DLL)
-					return text2num(call(SIGNAL_DLL_PATH, __DLL_SIMPLEX3)(num2text(x), num2text(y), num2text(z), num2text(seed)))
+					return text2num(call(SIGNAL_DLL_PATH, __DLL_SIMPLEX3)(num2text(x, 16), num2text(y, 16), num2text(z, 16), num2text(seed, 16)))
 
 				x += seed
 				y += seed

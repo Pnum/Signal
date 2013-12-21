@@ -93,7 +93,7 @@ proc
 	__hash2(x, y, seed) // compute a hash (FNV-1A) of x, y coordinates and seed and xor fold it down to 8 bits
 		#ifndef DISABLE_DLL_OPTIMIZATION
 
-		return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH2)(num2text(x), num2text(y), num2text(seed)))
+		return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16)))
 
 		#else
 
@@ -109,7 +109,7 @@ proc
 	__hash3(x, y, z, seed) // compute a hash (FNV-1A) of x, y, z coordinates and seed and xor fold it down to 8 bits
 		#ifndef DISABLE_DLL_OPTIMIZATION
 
-		return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH3)(num2text(x), num2text(y), num2text(z), num2text(seed)))
+		return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH3)(num2text(x, 16), num2text(y, 16), num2text(z, 16), num2text(seed, 16)))
 
 		#else
 

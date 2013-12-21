@@ -4,7 +4,7 @@ Noise
 			Voronoi
 				get2(x, y)
 					if(SIGNAL_USE_DLL)
-						return text2num(call(SIGNAL_DLL_PATH, __DLL_VORONOI2)(num2text(x), num2text(y), num2text(seed), num2text(distance_function), num2text(coeff_1), num2text(coeff_2), num2text(coeff_3), num2text(coeff_4)))
+						return text2num(call(SIGNAL_DLL_PATH, __DLL_VORONOI2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16), num2text(distance_function, 16), num2text(coeff_1, 16), num2text(coeff_2, 16), num2text(coeff_3, 16), num2text(coeff_4, 16)))
 
 					x += seed
 					y += seed
@@ -51,7 +51,7 @@ Noise
 
 				get3(x, y, z)
 					if(SIGNAL_USE_DLL)
-						return text2num(call(SIGNAL_DLL_PATH, __DLL_VORONOI3)(num2text(x), num2text(y), num2text(z), num2text(seed), num2text(distance_function), num2text(coeff_1), num2text(coeff_2), num2text(coeff_3), num2text(coeff_4)))
+						return text2num(call(SIGNAL_DLL_PATH, __DLL_VORONOI3)(num2text(x, 16), num2text(y, 16), num2text(z, 16), num2text(seed, 16), num2text(distance_function, 16), num2text(coeff_1, 16), num2text(coeff_2, 16), num2text(coeff_3, 16), num2text(coeff_4, 16)))
 
 					x += seed
 					y += seed
