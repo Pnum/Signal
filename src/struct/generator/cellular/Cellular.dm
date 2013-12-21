@@ -3,7 +3,7 @@ Noise
 		Cellular
 			var
 				distance_function = DISTANCE_EUCLIDEAN
-				__distance_function = 1
+				__distance_function = __DISTANCE_EUCLIDEAN
 
 				coeff_1 = 1
 				coeff_2 = 0
@@ -14,11 +14,15 @@ Noise
 
 			proc
 				setDistanceFunction(_distance_function = DISTANCE_EUCLIDEAN)
+					_distance_function = round(_distance_function)
+					ASSERT(_distance_function > 0 && _distance_function < 4)
+
 					distance_function = _distance_function
 
 					switch(distance_function)
 						if(DISTANCE_EUCLIDEAN) __distance_function = __DISTANCE_EUCLIDEAN
 						if(DISTANCE_MANHATTAN) __distance_function = __DISTANCE_MANHATTAN
+						if(DISTANCE_CHEBYSHEV) __distance_function = __DISTANCE_CHEBYSHEV
 
 				setCoefficients(a, b, c, d)
 					coeff_1 = a

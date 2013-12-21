@@ -33,6 +33,7 @@
 #include "src\struct\generator\Value.dm"
 #include "src\struct\generator\White.dm"
 #include "src\struct\generator\cellular\Cellular.dm"
+#include "src\struct\generator\cellular\Rings.dm"
 #include "src\struct\generator\cellular\Voronoi.dm"
 #include "src\struct\generator\cellular\Worley.dm"
 #include "src\struct\generator\fractal\Billow.dm"

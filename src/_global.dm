@@ -5,6 +5,11 @@ var
 	const
 		DISTANCE_EUCLIDEAN = 1
 		DISTANCE_MANHATTAN = 2
+		DISTANCE_CHEBYSHEV = 3
+
+proc
+	SIGNAL_DISABLE_DLL() SIGNAL_USE_DLL = FALSE
+	SIGNAL_ENABLE_DLL() SIGNAL_USE_DLL = TRUE
 
 #define __FNV_16_PRIME  3697
 #define __FNV_16_OFFSET 85
@@ -12,6 +17,7 @@ var
 
 #define __DISTANCE_EUCLIDEAN /proc/__distanceEuclidean
 #define __DISTANCE_MANHATTAN /proc/__distanceManhattan
+#define __DISTANCE_CHEBYSHEV /proc/__distanceChebyshev
 
 // These are used internally when sending data to the Signal DLL.
 #define __VALUE2_NOISE 1
@@ -44,6 +50,9 @@ var
 #define __DLL_WORLEY2 "getWorley2"
 #define __DLL_WORLEY3 "getWorley3"
 
+#define __DLL_RINGS2 "getRings2"
+#define __DLL_RINGS3 "getRings3"
+
 world
 	New()
 		if(SIGNAL_USE_DLL)
@@ -57,31 +66,19 @@ world
 
 		..()
 
-var
-	Noise/Generator/Checkerboard/checkerboard = new // checkerboard generator
-	Noise/Generator/Cylinders/cylinders = new // concentric cylinders generator
-	Noise/Generator/Grad/grad = new // gradient generator
-	Noise/Generator/GradValue/gradvalue = new // gradient + value generator
-	Noise/Generator/Simplex/simplex = new	// simplex generator
-	Noise/Generator/Spheres/spheres = new	// concentric spheres generator
-	Noise/Generator/Value/value = new	// value noise generator
-	Noise/Generator/White/white = new	// white noise generator
-	Noise/Generator/Cellular/Voronoi/voronoi = new // voronoi noise generator
-	Noise/Generator/Cellular/Worley/worley = new // worley noise generator
-	Noise/Generator/Fractal/Billow/billow = new // billow fractal generator
-	Noise/Generator/Fractal/FBM/fbm = new	// fractal brownian motion generator
-	Noise/Generator/Fractal/RidgedMulti/ridgedmulti = new // ridged multi fractal generator
-
 /*
 The functions below are not meant to be used by the library user. They are only meant for use internally.
 */
 
 proc
-	__distanceEuclidean(dx, dy, dz) // Euclidean distance calculator for cellular noise
+	__distanceEuclidean(dx, dy, dz) // Euclidean distance metric for cellular noise
 		return (dx * dx + dy * dy + dz * dz)
 
-	__distanceManhattan(dx, dy, dz) // Manhattan distance calculator for cellular noise
+	__distanceManhattan(dx, dy, dz) // Manhattan distance metric for cellular noise
 		return abs(dx) + abs(dy) + abs(dz)
+
+	__distanceChebyshev(dx, dy, dz) // Chebyshev distance metric
+		return max(abs(dx), abs(dy), abs(dz))
 
 	__quinticInterp(t) // This is the interpolation function used by the basic noise functions below.
 							  // It results in the smoothest result (versus linear & cubic interpolation).
