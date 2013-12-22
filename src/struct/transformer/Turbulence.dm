@@ -1,5 +1,5 @@
 Noise
-	Modifier
+	Transformer
 		Turbulence
 			source_count_req = 1
 

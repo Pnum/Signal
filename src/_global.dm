@@ -67,12 +67,6 @@ The functions below are not meant to be used by the library user. They are only 
 */
 
 proc
-	__tan(x)
-		return sin(x) / cos(x)
-
-	__arctan(x)
-		return arccos(1 / sqrt(1 + x * x))
-
 	__distanceEuclidean(dx, dy, dz) // Euclidean distance metric for cellular noise
 		return (dx * dx + dy * dy + dz * dz)
 
@@ -82,9 +76,15 @@ proc
 	__distanceChebyshev(dx, dy, dz) // Chebyshev distance metric
 		return max(abs(dx), abs(dy), abs(dz))
 
+	__linearInterp(n0, n1, a)
+		return ((1 - a) * n0) + (a * n1)
+
 	__quinticInterp(t) // This is the interpolation function used by the basic noise functions below.
 							  // It results in the smoothest result (versus linear & cubic interpolation).
 		return t * t * t * (t * (t * 6 - 15) + 10)
+
+	__curve(a)
+		return (a * a * (3 - 2 * a))
 
 	__dot2(list/arr, a, b) // calculate dot product for a two element array
 		return a * arr[1] + b * arr[2]

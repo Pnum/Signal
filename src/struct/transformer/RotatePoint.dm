@@ -1,6 +1,6 @@
 Noise
-	Modifier
-		Rotate
+	Transformer
+		RotatePoint
 			source_count_req = 1
 
 			var

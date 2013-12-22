@@ -2,9 +2,9 @@ Noise
 	Generator
 		Fractal
 			Plasma
-				h = 1
+				h = 0
 				gain = 0.5
-				offset = 0.8
+				offset = 0
 
 				get2(x, y)
 					x += seed

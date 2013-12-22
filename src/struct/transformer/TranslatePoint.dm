@@ -1,6 +1,6 @@
 Noise
-	Modifier
-		Translate
+	Transformer
+		TranslatePoint
 			source_count_req = 1
 
 			var

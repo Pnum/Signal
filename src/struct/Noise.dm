@@ -5,6 +5,9 @@ Noise
 		Noise/source = null
 		source_count_req = 0
 
+	New(Noise/_source)
+		if(_source) addSource(_source)
+
 	proc
 		setSources(list/_sources)
 			ASSERT(length(_sources) <= source_count_req || (source_count_req < 0))

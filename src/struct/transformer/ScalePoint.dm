@@ -1,6 +1,6 @@
 Noise
 	Modifier
-		Scale
+		Transformer
 			source_count_req = 1
 
 			var

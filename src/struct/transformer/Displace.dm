@@ -1,5 +1,5 @@
 Noise
-	Modifier
+	Transformer
 		Displace
 			source_count_req = 1
 
