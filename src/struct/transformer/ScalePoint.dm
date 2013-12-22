@@ -1,6 +1,6 @@
 Noise
-	Modifier
-		Transformer
+	Transformer
+		ScalePoint
 			source_count_req = 1
 
 			var
