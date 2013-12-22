@@ -114,9 +114,9 @@ you generally should avoid using only integer numbers (1, 2, 3, 4, etc). Noise i
 result, so if you are, for example, loop through a slice of noise, you would want to scale your coordinates by some factor so that they are smaller (0.05 instead
 of 1, for example). Again, an example below can demonstrate this.
 
-Noise Generators
+Base Noise Generators
 ================
-In this section you will find a description of each noise generator along with code examples & pictures.
+The following noise generators are considered "base" generators. Other generators typically make use of one of these in some way.
 
 White noise
 -----------
@@ -129,4 +129,134 @@ var/Noise/Generator/White/white_noise = new
 ```
 
 ![white noise generator 1x zoom](http://i.imgur.com/x5cpM5I.png "1x zoomed white noise")
-![white noise generator 32x zoom](http://i.imgur.com/X9Xd3G6.png "32x zoomed white noise")
+![white noise generator 8x zoom](http://i.imgur.com/X9Xd3G6.png "8x zoomed white noise")
+
+Value noise
+-----------
+Value noise is another simple type of noise that interpolates between values at "lattice points" (integers) to give
+the noise value. You can see where the lattice points are in the images. They are where integers are passed as
+coordinates, resulting in a visible grid-like shape. This function is often used as the basis for other functions.
+
+```dm
+var/Noise/Generator/Value/value_noise = new
+
+// The value noise generator has no properties to set.
+// This generator can offload computation to the DLL for faster results.
+```
+
+![value noise generator 16x zoom](http://i.imgur.com/2MMKFnb.png "16x zoomed value noise")
+![value noise generator 64x zoom](http://i.imgur.com/uvFHWhW.png "64x zoomed value noise")
+
+Gradient noise
+--------------
+Gradient noise improves upon value noise by interpolating smoothly between lattice points instead of just at the lattice
+points themselves like value noise does. This function is often used as the basis for other functions.
+
+```dm
+var/Noise/Generator/Gradient/gradient_noise = new
+
+// The gradient noise generator has no properties to set.
+// This generator can offload computation to the DLL for faster results.
+```
+
+![gradient noise generator 16x zoom](http://i.imgur.com/ktQyUC2.png "16x zoomed gradient noise")
+![gradient noise generator 64x zoom](http://i.imgur.com/12V1YVH.png "64x zoomed gradient noise")
+
+GradientValue noise
+-------------------
+This generator combines the results from a value noise generator and a gradient noise generator, then normalizes
+them so the values are between -1 and 1. Combining gradient and value noise results in a better looking noise. This
+function can be used as the basis for other functions.
+
+```dm
+var/Noise/Generator/GradientValue/gradientvalue_noise = new
+
+gradientvalue_noise.setValueWeight(weight = 0.5) // this sets the amount of value noise in the result
+gradientvalue_noise.setGradientWeight(weight = 0.5) // this sets the amount of gradient noise in the result
+
+gradientvalue_noise.getValueWeight() // returns the value weight
+gradientvalue_noise.getGradientWeight() // returns the gradient weight
+```
+
+![gradientvalue noise generator 16x zoom](http://i.imgur.com/MVH5N3K.png "16x zoomed gradientvalue noise")
+![gradientvalue noise generator 64x zoom](http://i.imgur.com/XtnUhcE.png "64x zoomed gradientvalue noise")
+
+Simplex noise
+-------------
+Simplex noise is one of the most popular methods of generating noise. It was designed by Ken Perlin, known for creating
+the classic "Perlin noise" that simplex noise is designed to improve upon. Simplex noise is great because it produces
+noise with no noticeable artifacts and because of how quickly it can be computed.
+
+```dm
+var/Noise/Generator/Simplex/simplex_noise = new
+
+// The simplex noise generator has no properties to set.
+// This generator can offload computation to the DLL for faster results.
+```
+
+![simplex noise generator 16x zoom](http://i.imgur.com/t8MuiAq.png "16x zoomed simplex noise")
+![simplex noise generator 64x zoom](http://i.imgur.com/kexrs7r.png "64x zoomed simplex noise")
+![simplex noise generator 128x zoom](http://i.imgur.com/rj2EiOe.png "128x zoomed simplex noise, rainbow gradient")
+
+Cellular Noise Generators
+=========================
+Cellular noise generators are named so because they generate "cells." The cellular noise generators have the following procs:
+
+```dm
+var/Noise/Cellular/cellular_noise // this base object does not actually generate anything. it is just the parent type for other cellular generators
+
+noise.setDistanceFunction(distance_function) // sets the distance function used by the generator
+// distance_function can be one of: DISTANCE_EUCLIDEAN (default), DISTANCE_MANHATTAN, or DISTANCE_CHEBYSHEV
+
+noise.setCoefficients(F1, F2, F3, F4) // sets coefficients 
+noise.setCoefficient1(F1)
+noise.setCoefficient2(F2)
+noise.setCoefficient3(F3)
+noise.setCoefficient4(F4)
+
+noise.getDistanceFunction()
+noise.getCoefficient1()
+noise.getCoefficient2()
+noise.getCoefficient3()
+noise.getCoefficient4()
+
+// The cellular noise generators can be computed on the DLL and it is highly recommended that you do so
+// because they are extremely slow in pure DM.
+```
+
+Cellular noise is easiest to understand when visualized. Changing the distance function and coefficients can cause wildly varied results.
+The available cellular noise generators are as follows.
+
+Voronoi cellular noise
+----------------------
+This generates noise much like a Voronoi diagram.
+
+```dm
+var/Noise/Cellular/Voronoi/voronoi_noise = new
+
+// See above for list of procs.
+```
+
+![voronoi noise generator 32x zoom](http://i.imgur.com/exPKnYt.png "32x zoomed voronoi noise, Euclidean distance")
+![voronoi noise generator 32x zoom](http://i.imgur.com/wMUXWLO.png "32x zoomed voronoi noise, Manhattan distance")
+![voronoi noise generator 32x zoom](http://i.imgur.com/BFx0Sok.png "32x zoomed voronoi noise, Chebyshev distance")
+![voronoi noise generator 32x zoom](http://i.imgur.com/A1sics9.png "32x zoomed voronoi noise, rainbow gradient")
+
+Worley cellular noise
+---------------------
+See http://en.wikipedia.org/wiki/Worley_noise for more information.
+
+```dm
+var/Noise/Cellular/Worley/worley_noise = new
+
+// See above for list of procs. Note that coefficients can be modified to change the output of voronoi noise as well.
+```
+
+![worley noise generator 32x zoom](http://i.imgur.com/xJ2MDIZ.png "32x zoomed worley noise, Euclidean distance, F1 = 1")
+![worley noise generator 32x zoom](http://i.imgur.com/zWxWkSs.png "32x zoomed worley noise, Manhattan distance, F1 = 1")
+![worley noise generator 32x zoom](http://i.imgur.com/akLL3cn.png "32x zoomed worley noise, Chebyshev distance, F1 = 1")
+
+![worley noise generator 32x zoom](http://i.imgur.com/zUqz7Cp.png "32x zoomed worley noise, Euclidean distance, F1 = -1, F2 = 1")
+![worley noise generator 32x zoom](http://i.imgur.com/KY3vL0y.png "32x zoomed worley noise, Manhattan distance, F1 = -1, F2 = 1")
+
+![worley noise generator 32x zoom](http://i.imgur.com/o97R9Ys.png "32x zoomed worley noise, Euclidean distance, F1 = -1, F2 = 1")
