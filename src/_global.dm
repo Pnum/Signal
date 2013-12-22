@@ -11,8 +11,6 @@ proc
 	SIGNAL_DISABLE_DLL() SIGNAL_USE_DLL = FALSE
 	SIGNAL_ENABLE_DLL() SIGNAL_USE_DLL = TRUE
 
-	SIGNAL_SET_DLL_PATH(path = "lib/Signal.dll") SIGNAL_DLL_PATH = path
-
 #define __DISTANCE_EUCLIDEAN /proc/__distanceEuclidean
 #define __DISTANCE_MANHATTAN /proc/__distanceManhattan
 #define __DISTANCE_CHEBYSHEV /proc/__distanceChebyshev
