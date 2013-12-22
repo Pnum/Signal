@@ -1,6 +1,6 @@
 Noise
 	Generator
-		Grad
+		Gradient
 			get2(x, y)
 				if(SIGNAL_USE_DLL)
 					return text2num(call(SIGNAL_DLL_PATH, __DLL_GRAD2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16)))
