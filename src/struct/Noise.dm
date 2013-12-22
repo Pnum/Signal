@@ -31,6 +31,7 @@ Noise
 
 		clearSources()
 			sources = list()
+			source = null
 
 		removeSource(Noise/_source)
 			sources -= _source
