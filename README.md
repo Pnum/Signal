@@ -118,8 +118,8 @@ Base Noise Generators
 ================
 The following noise generators are considered "base" generators. Other generators typically make use of one of these in some way.
 
-White noise
------------
+White
+-----
 White noise is the simplest type of noise. You can create a white noise generator like so:
 
 ```dm
@@ -131,8 +131,8 @@ var/Noise/Generator/White/white_noise = new
 ![white noise generator 1x zoom](http://i.imgur.com/x5cpM5I.png "1x zoomed white noise")
 ![white noise generator 8x zoom](http://i.imgur.com/X9Xd3G6.png "8x zoomed white noise")
 
-Value noise
------------
+Value
+-----
 Value noise is another simple type of noise that interpolates between values at "lattice points" (integers) to give
 the noise value. You can see where the lattice points are in the images. They are where integers are passed as
 coordinates, resulting in a visible grid-like shape. This function is often used as the basis for other functions.
@@ -147,8 +147,8 @@ var/Noise/Generator/Value/value_noise = new
 ![value noise generator 16x zoom](http://i.imgur.com/2MMKFnb.png "16x zoomed value noise")
 ![value noise generator 64x zoom](http://i.imgur.com/uvFHWhW.png "64x zoomed value noise")
 
-Gradient noise
---------------
+Gradient
+--------
 Gradient noise improves upon value noise by interpolating smoothly between lattice points instead of just at the lattice
 points themselves like value noise does. This function is often used as the basis for other functions.
 
@@ -162,8 +162,8 @@ var/Noise/Generator/Gradient/gradient_noise = new
 ![gradient noise generator 16x zoom](http://i.imgur.com/ktQyUC2.png "16x zoomed gradient noise")
 ![gradient noise generator 64x zoom](http://i.imgur.com/12V1YVH.png "64x zoomed gradient noise")
 
-GradientValue noise
--------------------
+GradientValue
+-------------
 This generator combines the results from a value noise generator and a gradient noise generator, then normalizes
 them so the values are between -1 and 1. Combining gradient and value noise results in a better looking noise. This
 function can be used as the basis for other functions.
@@ -181,8 +181,8 @@ gradientvalue_noise.getGradientWeight() // returns the gradient weight
 ![gradientvalue noise generator 16x zoom](http://i.imgur.com/MVH5N3K.png "16x zoomed gradientvalue noise")
 ![gradientvalue noise generator 64x zoom](http://i.imgur.com/XtnUhcE.png "64x zoomed gradientvalue noise")
 
-Simplex noise
--------------
+Simplex
+-------
 Simplex noise is one of the most popular methods of generating noise. It was designed by Ken Perlin, known for creating
 the classic "Perlin noise" that simplex noise is designed to improve upon. Simplex noise is great because it produces
 noise with no noticeable artifacts and because of how quickly it can be computed.
@@ -227,7 +227,7 @@ noise.getCoefficient4()
 Cellular noise is easiest to understand when visualized. Changing the distance function and coefficients can cause wildly varied results.
 The available cellular noise generators are as follows.
 
-Voronoi cellular noise
+Voronoi
 ----------------------
 This generates noise much like a Voronoi diagram.
 
@@ -242,7 +242,7 @@ var/Noise/Cellular/Voronoi/voronoi_noise = new
 ![voronoi noise generator 32x zoom](http://i.imgur.com/BFx0Sok.png "32x zoomed voronoi noise, Chebyshev distance")
 ![voronoi noise generator 32x zoom](http://i.imgur.com/A1sics9.png "32x zoomed voronoi noise, rainbow gradient")
 
-Worley cellular noise
+Worley
 ---------------------
 See http://en.wikipedia.org/wiki/Worley_noise for more information.
 
@@ -259,7 +259,7 @@ var/Noise/Cellular/Worley/worley_noise = new
 ![worley noise generator 32x zoom](http://i.imgur.com/KY3vL0y.png "32x zoomed worley noise, Manhattan distance, F1 = -1, F2 = 1")
 ![worley noise generator 32x zoom](http://i.imgur.com/o97R9Ys.png "32x zoomed worley noise, Euclidean distance, F1 = -1, F2 = 1")
 
-Rings cellular noise
+Rings
 -----------
 ```dm
 var/Noise/Cellular/Rings/rings_noise = new
@@ -307,3 +307,102 @@ Spheres
 
 Cylinders
 ---------
+
+Modifiers
+=========
+
+Abs
+---
+
+Clamp
+-----
+
+Exponent
+--------
+
+Interpolate
+-----------
+
+Invert
+------
+
+Multiply
+--------
+
+ScaleBias
+---------
+
+Terrace
+-------
+
+Threshold
+---------
+
+Combiners
+========
+
+Add
+---
+
+Average
+-------
+
+Max
+---
+
+Min
+---
+
+Multiply
+--------
+
+Power
+-----
+
+Transformers
+============
+
+Displace
+--------
+
+RotatePoint
+-----------
+
+ScalePoint
+----------
+
+TranslatePoint
+--------------
+
+Turbulence
+----------
+
+Miscellaneous
+=============
+
+Blend
+-----
+
+Cache
+-----
+
+DynamicCache
+------------
+
+NormalMap
+---------
+
+Select
+------
+
+Shader
+------
+
+Code Examples
+=============
+
+Drawing noise on a canvas
+-------------------------
+
+Creating a random map
+---------------------
