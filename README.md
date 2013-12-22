@@ -255,8 +255,55 @@ var/Noise/Cellular/Worley/worley_noise = new
 ![worley noise generator 32x zoom](http://i.imgur.com/xJ2MDIZ.png "32x zoomed worley noise, Euclidean distance, F1 = 1")
 ![worley noise generator 32x zoom](http://i.imgur.com/zWxWkSs.png "32x zoomed worley noise, Manhattan distance, F1 = 1")
 ![worley noise generator 32x zoom](http://i.imgur.com/akLL3cn.png "32x zoomed worley noise, Chebyshev distance, F1 = 1")
-
 ![worley noise generator 32x zoom](http://i.imgur.com/zUqz7Cp.png "32x zoomed worley noise, Euclidean distance, F1 = -1, F2 = 1")
 ![worley noise generator 32x zoom](http://i.imgur.com/KY3vL0y.png "32x zoomed worley noise, Manhattan distance, F1 = -1, F2 = 1")
-
 ![worley noise generator 32x zoom](http://i.imgur.com/o97R9Ys.png "32x zoomed worley noise, Euclidean distance, F1 = -1, F2 = 1")
+
+Rings cellular noise
+-----------
+```dm
+var/Noise/Cellular/Rings/rings_noise = new
+
+// In addition to all of the parameters for the other cellular functions, this generator also has:
+rings_noise.setScale(scale = 256) // sets the size of the rings
+rings_noise.setFrequency(frequency = 1) // sets the frequency
+rings_noise.setAmplitude(amplitude = 1) // sets the amplitude
+rings_noise.setPhase(phase = 0) // sets the phase
+
+rings_noise.getScale()
+rings_noise.getFrequency()
+rings_noise.getAmplitude()
+rings_noise.getPhase()
+
+// Changing the distance function for this will result in diamonds (Manhattan distance) and squares (Chebyshev distance).
+```
+
+![rings noise generator 64x zoom](http://i.imgur.com/o79LMRC.png "64x zoomed rings noise, Euclidean distance")
+![rings noise generator 64x zoom](http://i.imgur.com/50UM06n.png "64x zoomed rings noise, Manhattan distance")
+![rings noise generator 64x zoom](http://i.imgur.com/BCw6cgL.png "64x zoomed rings noise, Chebyshev distance")
+![rings noise generator 64x zoom](http://i.imgur.com/daiZ6id.png "64x zoomed rings noise, Euclidean distance, incandescent gradient")
+![rings noise generator 64x zoom](http://i.imgur.com/5UUhPUS.png "64x zoomed rings noise, Manhattan distance, metallic gradient")
+
+Fractal Noise Generators
+========================
+
+Plasma fractal
+--------------
+
+Ridged multifractal
+-------------------
+
+Billow fractal
+--------------
+
+Shape Generators
+================
+
+Checkerboard
+------------
+
+Spheres
+-------
+
+Cylinders
+---------
