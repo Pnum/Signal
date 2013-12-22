@@ -28,9 +28,6 @@ proc
 #define __DLL_VERSION "1.0"
 
 // These are the names of the corresponding functions in the Signal DLL
-#define __DLL_HASH2 "getHash2"
-#define __DLL_HASH3 "getHash3"
-
 #define __DLL_GRAD2 "getGrad2"
 #define __DLL_GRAD3 "getGrad3"
 
@@ -101,16 +98,10 @@ proc
 	__simplexHash3(x, y, z, seed)
 		return __simplexPerm(x + __simplexPerm(y) + __simplexPerm(z) + __simplexPerm(seed))
 
-	__hash2(x, y, seed) // compute a hash (FNV-1A) of x, y coordinates and seed and xor fold it down to 8 bits
-		if(SIGNAL_USE_DLL)
-			return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH2)(num2text(x, 16), num2text(y, 16), num2text(seed, 16)))
-
+	__hash2(x, y, seed)
 		return __simplexHash2(x, y, seed)
 
-	__hash3(x, y, z, seed) // compute a hash (FNV-1A) of x, y, z coordinates and seed and xor fold it down to 8 bits
-		if(SIGNAL_USE_DLL)
-			return text2num(call(SIGNAL_DLL_PATH, __DLL_HASH3)(num2text(x, 16), num2text(y, 16), num2text(z, 16), num2text(seed, 16)))
-
+	__hash3(x, y, z, seed)
 		return __simplexHash3(x, y, z, seed)
 
 	__valueNoise2(x, y, ix, iy, seed) // calculate 2D value noise
