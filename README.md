@@ -15,3 +15,92 @@ Why is coherent noise useful?
 Coherent noise has a variety of applications. It is typically used for generating textures and terrain for use in
 games. It can be used in place of any pseudorandom process to create a more "natural" sequence of
 pseudorandom numbers.
+
+How do I use Signal?
+--------------------
+Download the library at http://www.byond.com/developer/Koil/Signal and include it in your project.
+
+Signal also provides a .DLL that certain functions can offload their computations to in order to provide quicker
+results. It is highly recommended that you make use of the .DLL if possible. You will need to manually copy the
+/lib folder from the Signal library into your own project to make use of it. If you have moved the .DLL somewhere
+else or if the /lib folder is not in the root folder of your project, you must set the variable SIGNAL_DLL_PATH
+to the correct location. Example:
+
+```dm
+SIGNAL_USE_DLL = TRUE // set to FALSE to disable the .DLL entirely. This is not generally recommended.
+SIGNAL_DLL_PATH = "/lib/Signal.dll" // or "/path/to/Signal.dll" If you are hosting on Linux, you may use the .lib file instead.
+
+/*
+You also can use the procs SIGNAL_DISABLE_DLL() and SIGNAL_ENABLE_DLL() to turn the .DLL off and on in your code.
+
+Note that version matching is done between the DLL and the library. Versions must match or the DLL will fail to load.
+*/
+```
+
+After you've done those steps, you're ready to use Signal!
+
+Let's begin!
+------------
+The Noise object is the base object from which every other object you'll be using from Signal is derived from. Every
+Noise object has a `seed` variable that you can set with `setSeed(seed)` as long as the seed is from -65535 to 65535.
+You can also use `randSeed()` to set seed to a random value form -65535 to 65535. `getSeed()` will return the current
+seed. We will discuss the `seed` property later.
+
+Every Noise object also maintains a list of "sources," which are just other Noise objects. This is useful because
+many different types of Noise objects modify other Noise objects in some way, so this is how you will tell your
+Noise object what it will be modifying. Some Noise objects don't need any source objects. Trying to add a source to a Noise
+object that does not use it will result in your program crashing.
+
+To add a single source object, call `addSource(Noise/source)` or `setSource(Noise/source)`. `setSource()` is useful if
+the Noise object you are using only requires a single source. Call `addSource()` for as many sources as you need. You can
+also use `setSources(list/sources)` to set every source you need at once. `overrideSource(source_number, Noise/new_source)`
+will overwrite the source object at the specified location, and `clearSources()` will clear all sources from your
+object. Other related procs include `getSource()` to retrieve the first source, `getSources()` to retrieve the list of sources,
+`getSourceCountReq()` to get the number of sources your object requires. This may seem confusing at first, but it will make
+sense as we move on!
+
+A Noise object?
+---------------
+Just creating a simple Noise object like `var/Noise/noise = new` isn't useful! It won't do anything. Signal provides a large
+variety of predefined Noise objects for you to use. We will be discussing them soon.
+
+It is important now to know that every Noise object also has two procs, they are `get2(x, y)` and `get3(x, y, z)`. Calling
+these procs will make your Noise object calculate the noise value located at the coordinates you specify. `get2()` is for
+calculating 2D noise and `get3()` is used for calculating 3D noise. Note that 3D noise is generally more complex and computation
+times can be significant. Use the 2D `get2()` function when possible.
+
+How are these Noise objects supposed to know what values you want to get? This is where we begin to build noise!
+
+Signal categorizes Noise objects into combiners, generators, modifiers, transformers, and miscellaneous. Generators are the objects
+that compute your chosen type of noise. Combiners take other Noise objects and combine them in some way. Modifiers modify the output
+value of a Noise object (the value you get from `get2()` and `get3()`). Transformers modify the coordinates you supply to the `get2()`
+and `get3()` functions to alter the output values you get. There are also other miscellaneous Noise objects we will discuss later.
+
+The library is structured in this way to allow you to chain together all the different types of Noise objects to compute complex
+noise that is very specific to your needs. An example:
+
+```dm
+var
+	Noise/Generator/Simplex/simplex_generator = new // create a simplex noise generator
+	Noise/Generator/Simplex/simplex_generator2 = new // create another simplex noise generator
+	Noise/Combiner/Add/add_combiner = new // create a combiner that adds together other Noise objects
+
+add_combiner.setSources(list(simplex_generator, simplex_generator2)) // tells the combiner that we want to add these two generators together
+
+world << add_combiner.get2(0.5, 0.5) // this will give us the same result as doing simplex_generator.get2(0.5, 0.5) + simplex_generator2.get2(0.5, 0.5)
+```
+
+We'll discuss all the types of noise generators (including simplex) later. Right now let's talk about that `seed` property from before. The
+seed property of Noise objects is important because `get2()` and `get3()` functions return the same exact value for any given coordinate every
+time you use that coordinate. All Noise objects have an initial seed of 0. So you can have 200 different simplex noise objects but they're going
+to give you the exact same value for `get2(0.5, 0.5)` because they have the same seed. Changing the seed value will "move" the space your noise
+is calculated in around. A small change in the seed will result in a small change in the resultant noise, and a large change in the seed will result in a
+large change in the resultant noise. Setting the seed allows you to achieve pseudorandom noise!
+
+So what the heck is a simplex noise generator? Simplex noise is a function created by Ken Perlin (the creator of "classic" perlin noise) to calculate
+noise comparable to his original noise function except with less complexity and faster computation time. Simplex noise is probably the most "useful" noise
+and is probably the most used type of noise (other than classic perlin noise, which this library does not implement).
+
+Simplex noise is just one of several noise types that Signal can generate. In the following section, you will see every Noise object that Signal provides
+along with examples of how to use them and what they result in. The example pictures are calculated from slices of noise that are then colorized and drawn
+by my Canvas library (http://www.byond.com/developer/Koil/Canvas). There is example code at the bottom to show exactly how I generated the pictures.
