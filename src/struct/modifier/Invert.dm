@@ -14,4 +14,4 @@ Noise
 				x += seed
 				y += seed
 
-				return -source.get3(x, y)
+				return -source.get2(x, y)

@@ -83,12 +83,6 @@ proc
 	__curve(a)
 		return (a * a * (3 - 2 * a))
 
-	__dot2(list/arr, a, b) // calculate dot product for a two element array
-		return a * arr[1] + b * arr[2]
-
-	__dot3(list/arr, a, b, c) // calculate dot product for a three element array
-		return a * arr[1] + b * arr[2] + c * arr[3]
-
 	__simplexPerm(x)
 		return __simplex_perm_lut[(x & 255) + 1]
 
@@ -174,10 +168,8 @@ var
 		0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0,
 		0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, -1, 0)
 
-	list/__simplex_grad3_lut = list(
-		list(1, 1, 0), list(-1, 1, 0), list(1, -1, 0), list(-1, -1, 0),
-		list(1, 0, 1), list(-1, 0, 1), list(1, 0, -1), list(-1, 0, -1),
-		list(0, 1, 1), list(0, -1, 1), list(0, 1, -1), list(0, -1, -1))
+	list/__simplex_grad2_lut = list(1, 1, -1, 1, 1, -1, -1, -1, 1, 0, -1, 0, 1, 0, -1, 0, 0, 1, 0, -1, 0, 1, 0, -1)
+	list/__simplex_grad3_lut = list(1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1, 0, 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1)
 
 	list/__simplex_perm_lut = list(
 		151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142,

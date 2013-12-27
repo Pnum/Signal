@@ -40,10 +40,10 @@ Noise
 					ny = y
 
 				if(x_displace)
-					nx += x_displace.get2(x, y)
+					nx += x_displace.get2(x, y) * power
 
 				if(y_displace)
-					ny += y_displace.get2(x, y)
+					ny += y_displace.get2(x, y) * power
 
 				return source.get2(nx, ny)
 
