@@ -38,6 +38,7 @@
 #include "src\struct\generator\cellular\Voronoi.dm"
 #include "src\struct\generator\cellular\Worley.dm"
 #include "src\struct\generator\fractal\Billow.dm"
+#include "src\struct\generator\fractal\FastPlasma.dm"
 #include "src\struct\generator\fractal\Fractal.dm"
 #include "src\struct\generator\fractal\Plasma.dm"
 #include "src\struct\generator\fractal\RidgedMulti.dm"

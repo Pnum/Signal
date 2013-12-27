@@ -25,7 +25,7 @@ proc
 #define __MAX_SEED 65535
 
 // This value must match the value within the Signal DLL for it to load.
-#define __DLL_VERSION "1.0"
+#define __DLL_VERSION "1.1"
 
 // These are the names of the corresponding functions in the Signal DLL
 #define __DLL_GRAD2 "getGrad2"
@@ -39,6 +39,9 @@ proc
 
 #define __DLL_VORONOI2 "getVoronoi2"
 #define __DLL_VORONOI3 "getVoronoi3"
+
+#define __DLL_FASTPLASMA2 "getFastPlasma2"
+#define __DLL_FASTPLASMA3 "getFastPlasma3"
 
 #define __DLL_WORLEY2 "getWorley2"
 #define __DLL_WORLEY3 "getWorley3"
