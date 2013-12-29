@@ -12,6 +12,10 @@ Noise
 
 				Noise/Generator/Simplex/simplex = new
 
+			setSeed(_seed)
+				..(_seed)
+				simplex.setSeed(_seed)
+
 			proc
 				setDistanceFunction(_distance_function = DISTANCE_EUCLIDEAN)
 					_distance_function = round(_distance_function)

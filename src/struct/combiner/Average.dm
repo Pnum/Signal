@@ -12,12 +12,12 @@ Noise
 
 				. /= length(sources)
 
-			get2(x, y, z)
+			get2(x, y)
 				x += seed
 				y += seed
 
 				. = 0
 				for(var/Noise/source in sources)
-					. += source.get2(x, y, z)
+					. += source.get2(x, y)
 
 				. /= length(sources)

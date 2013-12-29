@@ -21,8 +21,9 @@ proc
 #define __GRAD2_NOISE 3
 #define __GRAD3_NOISE 4
 
-#define __MIN_SEED -65535
-#define __MAX_SEED 65535
+// Arbitrarily large numbers.
+#define __MIN_VALUE -99999
+#define __MAX_VALUE 99999
 
 // This value must match the value within the Signal DLL for it to load.
 #define __DLL_VERSION "1.1"
@@ -66,6 +67,13 @@ world
 The functions below are not meant to be used by the library user. They are only meant for use internally.
 */
 
+#define __LINEAR_INTERP(n0, n1, a) ((1 - a) * n0) + (a * n1)
+#define __QUINTIC_INTERP(t) (t * t * t * (t * (t * 6 - 15) + 10))
+#define __CURVE(a) (a * a * (3 - 2 * a))
+#define __SIMPLEX_PERM(x) __simplex_perm_lut[(x & 255) + 1]
+#define __SIMPLEX_HASH2(x, y, seed) __SIMPLEX_PERM(x + __SIMPLEX_PERM(y) + __SIMPLEX_PERM(seed))
+#define __SIMPLEX_HASH3(x, y, z, seed) __SIMPLEX_PERM(x + __SIMPLEX_PERM(y) + __SIMPLEX_PERM(z) + __SIMPLEX_PERM(seed))
+
 proc
 	__distanceEuclidean(dx, dy, dz) // Euclidean distance metric for cellular noise
 		return (dx * dx + dy * dy + dz * dz)
@@ -76,43 +84,18 @@ proc
 	__distanceChebyshev(dx, dy, dz) // Chebyshev distance metric
 		return max(abs(dx), abs(dy), abs(dz))
 
-	__linearInterp(n0, n1, a)
-		return ((1 - a) * n0) + (a * n1)
-
-	__quinticInterp(t) // This is the interpolation function used by the basic noise functions below.
-							  // It results in the smoothest result (versus linear & cubic interpolation).
-		return t * t * t * (t * (t * 6 - 15) + 10)
-
-	__curve(a)
-		return (a * a * (3 - 2 * a))
-
-	__simplexPerm(x)
-		return __simplex_perm_lut[(x & 255) + 1]
-
-	__simplexHash2(x, y, seed)
-		return __simplexPerm(x + __simplexPerm(y) + __simplexPerm(seed))
-
-	__simplexHash3(x, y, z, seed)
-		return __simplexPerm(x + __simplexPerm(y) + __simplexPerm(z) + __simplexPerm(seed))
-
-	__hash2(x, y, seed)
-		return __simplexHash2(x, y, seed)
-
-	__hash3(x, y, z, seed)
-		return __simplexHash3(x, y, z, seed)
-
 	__valueNoise2(x, y, ix, iy, seed) // calculate 2D value noise
-		return (__hash2(ix, iy, seed) / 255) * 2 - 1
+		return (__SIMPLEX_HASH2(ix, iy, seed) / 255) * 2 - 1
 
 	__valueNoise3(x, y, z, ix, iy, iz, seed) // calculate 3D value noise
-		return (__hash3(ix, iy, iz, seed) / 255) * 2 - 1
+		return (__SIMPLEX_HASH3(ix, iy, iz, seed) / 255) * 2 - 1
 
 	__gradNoise2(x, y, ix, iy, seed) // calculate 2D gradient noise
-		. = (__hash2(ix, iy, seed) * 2) + 1
+		. = (__SIMPLEX_HASH2(ix, iy, seed) * 2) + 1
 		return (x - ix) * __grad2_lut[.] + (y - iy) * __grad2_lut[. + 1]
 
 	__gradNoise3(x, y, z, ix, iy, iz, seed) // calculate 3D gradient noise
-		. = ( __hash3(ix, iy, iz, seed) * 3) + 1
+		. = ( __SIMPLEX_HASH3(ix, iy, iz, seed) * 3) + 1
 		return (x - ix) * __grad3_lut[.] + (y - iy) * __grad3_lut[. + 1] + (z - iz) * __grad3_lut[. + 2]
 
 	__interpX2(x, y, xs, x0, x1, iy, seed, noise_function) // function used to interpolate between integers, providing smooth noise

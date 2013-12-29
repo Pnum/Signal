@@ -39,12 +39,12 @@ Noise
 			if(source == _source) source = null
 
 		setSeed(_seed)
-			if(seed < __MIN_SEED) seed = __MIN_SEED
-			if(seed > __MAX_SEED) seed = __MAX_SEED
+			if(seed < __MIN_VALUE) seed = __MIN_VALUE
+			if(seed > __MAX_VALUE) seed = __MAX_VALUE
 			seed = round(_seed)
 
 		randSeed()
-			setSeed(rand(-65535, 65535))
+			setSeed(rand(__MIN_VALUE, __MAX_VALUE))
 
 		getSeed()
 			return seed

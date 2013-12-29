@@ -23,22 +23,13 @@ Noise
 				y += seed
 				z += seed
 
-				var
-					nx = (x1_matrix * x) + (y1_matrix * y) + (z1_matrix * z)
-					ny = (x2_matrix * x) + (y2_matrix * y) + (z2_matrix * z)
-					nz = (x3_matrix * x) + (y3_matrix * y) + (z3_matrix * z)
-
-				return source.get3(nx, ny, nz)
+				return source.get3((x1_matrix * x) + (y1_matrix * y) + (z1_matrix * z), (x2_matrix * x) + (y2_matrix * y) + (z2_matrix * z), (x3_matrix * x) + (y3_matrix * y) + (z3_matrix * z))
 
 			get2(x, y)
 				x += seed
 				y += seed
 
-				var
-					nx = (x1_matrix * x) + (y1_matrix * y)
-					ny = (x2_matrix * x) + (y2_matrix * y)
-
-				return source.get2(nx, ny)
+				return source.get2((x1_matrix * x) + (y1_matrix * y), (x2_matrix * x) + (y2_matrix * y))
 
 			proc
 				setAngles(_x_angle = 0, _y_angle = 0, _z_angle = 0)

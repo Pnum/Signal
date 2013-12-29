@@ -9,7 +9,7 @@ Noise
 				. = 0
 				for(var/Noise/source in sources)
 					if(. == 0)
-						. = source.get2(x, y)
+						. = source.get3(x, y, z)
 
 					else
 						. = . ** source.get3(x, y, z)
@@ -20,4 +20,8 @@ Noise
 
 				. = 0
 				for(var/Noise/source in sources)
-					. = . ** source.get2(x, y)
+					if(. == 0)
+						. = source.get2(x, y)
+
+					else
+						. = . ** source.get2(x, y)

@@ -21,14 +21,14 @@ Noise
 						dsp
 						dist
 						list/disp = list(0, 0, 0, 0)
-						list/f = list(99999, 99999, 99999, 99999)
+						list/f = list(__MAX_VALUE, __MAX_VALUE, __MAX_VALUE, __MAX_VALUE)
 						i
 						index
 
 					for(ycur = yi - 3, ycur <= yi + 3, ycur ++)
 						for(xcur = xi - 3, xcur <= xi + 3, xcur ++)
-							xpos = xcur + simplex.get2(xcur, ycur, seed)
-							ypos = ycur + simplex.get2(xcur, ycur, seed + 1)
+							xpos = xcur + simplex.get2(xcur, ycur)
+							ypos = ycur + simplex.get2(xcur + 1, ycur + 1,)
 							dx = xpos - x
 							dy = ypos - y
 							dist = call(__distance_function)(dx, dy)
@@ -73,16 +73,16 @@ Noise
 						dist
 						dsp
 						list/disp = list(0, 0, 0, 0)
-						list/f = list(99999, 99999, 99999, 99999)
+						list/f = list(__MAX_VALUE, __MAX_VALUE, __MAX_VALUE, __MAX_VALUE)
 						i
 						index
 
 					for(zcur = zi - 3, zcur <= zi + 3, zcur ++)
 						for(ycur = yi - 3, ycur <= yi + 3, ycur ++)
 							for(xcur = xi - 3, xcur <= xi + 3, xcur ++)
-								xpos = xcur + simplex.get3(xcur, ycur, zcur, seed)
-								ypos = ycur + simplex.get3(xcur, ycur, zcur, seed + 1)
-								zpos = zcur + simplex.get3(xcur, ycur, zcur, seed + 2)
+								xpos = xcur + simplex.get3(xcur, ycur, zcur)
+								ypos = ycur + simplex.get3(xcur + 1, ycur + 1, zcur + 1)
+								zpos = zcur + simplex.get3(xcur + 2, ycur + 2, zcur + 2)
 								dx = xpos - x
 								dy = ypos - y
 								dz = zpos - z

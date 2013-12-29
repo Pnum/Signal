@@ -53,9 +53,9 @@ Noise
 						lower_curve = lower_bound - edge_falloff
 						upper_curve = lower_bound + edge_falloff
 
-					alpha = __curve((control_value - lower_curve) / (upper_curve - lower_curve))
+					alpha = __CURVE((control_value - lower_curve) / (upper_curve - lower_curve))
 
-					return __linearInterp(source.get2(x, y), source2.get2(x, y), alpha)
+					return __LINEAR_INTERP(source.get2(x, y), source2.get2(x, y), alpha)
 
 				else if(control_value < (upper_bound - edge_falloff))
 					return source2.get2(x, y)
@@ -65,9 +65,9 @@ Noise
 						lower_curve = upper_bound - edge_falloff
 						upper_curve = upper_bound + edge_falloff
 
-					alpha = __curve((control_value - lower_curve) / (upper_curve - lower_curve))
+					alpha = __CURVE((control_value - lower_curve) / (upper_curve - lower_curve))
 
-					return __linearInterp(source2.get2(x, y), source.get2(x, y), alpha)
+					return __LINEAR_INTERP(source2.get2(x, y), source.get2(x, y), alpha)
 
 				else
 					return source.get2(x, y)
@@ -97,9 +97,9 @@ Noise
 						lower_curve = lower_bound - edge_falloff
 						upper_curve = lower_bound + edge_falloff
 
-					alpha = __curve((control_value - lower_curve) / (upper_curve - lower_curve))
+					alpha = __CURVE((control_value - lower_curve) / (upper_curve - lower_curve))
 
-					return __linearInterp(source.get3(x, y, z), source3.get3(x, y, z), alpha)
+					return __LINEAR_INTERP(source.get3(x, y, z), source2.get3(x, y, z), alpha)
 
 				else if(control_value < (upper_bound - edge_falloff))
 					return source2.get3(x, y, z)
@@ -109,9 +109,9 @@ Noise
 						lower_curve = upper_bound - edge_falloff
 						upper_curve = upper_bound + edge_falloff
 
-					alpha = __curve((control_value - lower_curve) / (upper_curve - lower_curve))
+					alpha = __CURVE((control_value - lower_curve) / (upper_curve - lower_curve))
 
-					return __linearInterp(source2.get3(x, y, z), source.get3(x, y, z), alpha)
+					return __LINEAR_INTERP(source2.get3(x, y, z), source.get3(x, y, z), alpha)
 
 				else
 					return source.get3(x, y, z)

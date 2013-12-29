@@ -16,4 +16,4 @@ Noise
 
 				. = -268435456
 				for(var/Noise/source in sources)
-					. = max(., source.get3(x, y))
+					. = max(., source.get2(x, y))

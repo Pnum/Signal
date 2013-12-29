@@ -29,7 +29,7 @@ Noise
 				b = source2.get2(x, y)
 				c = (source3.get2(x, y) + 1) / 2
 
-			return __linearInterp(a, b, c)
+			return __LINEAR_INTERP(a, b, c)
 
 		get3(x, y, z)
 			x += seed
@@ -41,4 +41,4 @@ Noise
 				b = source2.get3(x, y, z)
 				c = (source3.get3(x, y, z) + 1) / 2
 
-			return __linearInterp(a, b, c)
+			return __LINEAR_INTERP(a, b, c)

@@ -36,13 +36,11 @@ Noise
 				return z_scale
 
 		get2(x, y)
-			var
-				given = source.get2(x, y)
-				above = source.get2(x, y + (1 / y_scale))
-				right = source.get2(x + (1 / x_scale), y)
+			. = source.get2(x, y)
 
-				Nx = given - above
-				Ny = given - right
+			var
+				Nx = . - source.get2(x, y + (1 / y_scale))
+				Ny = . - source.get2(x + (1 / x_scale), y)
 
 				l = sqrt((Nx * Nx) + (Ny * Ny) + 1)
 
@@ -52,17 +50,17 @@ Noise
 			return list(Nx, Ny, 1)
 
 		get3(x, y, z)
+			. = source.get3(x, y, z)
+
 			var
-				given = source.get2(x, y)
-				above = source.get2(x, y + (1 / y_scale))
-				right = source.get2(x + (1 / x_scale), y)
+				Nx = . - source.get3(x, y + (1 / y_scale), z)
+				Ny = . - source.get3(x + (1 / x_scale), y, z)
+				Nz = . - source.get3(x, y, z + (1 / z_scale))
 
-				Nx = given - above
-				Ny = given - right
-
-				l = sqrt((Nx * Nx) + (Ny * Ny) + 1)
+				l = sqrt((Nx * Nx) + (Ny * Ny) + (Nz * Nz))
 
 			Nx /= l
 			Ny /= l
+			Nz /= l
 
-			return list(Nx, Ny, 1)
+			return list(Nx, Ny, Nz)

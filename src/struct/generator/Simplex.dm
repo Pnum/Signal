@@ -9,10 +9,6 @@ Noise
 				y += seed
 
 				var
-					n0
-					n1
-					n2
-
 					s = (x + y) * 0.36602540378
 					i = round(x + s)
 					j = round(y + s)
@@ -24,8 +20,13 @@ Noise
 					i1
 					j1
 
-				if(x0 > y0) { i1 = 1; j1 = 0; }
-				else { i1 = 0; j1 = 1; }
+				if(x0 > y0)
+					i1 = 1
+					j1 = 0
+
+				else
+					i1 = 0
+					j1 = 1
 
 				var
 					x1 = x0 - i1 + 0.2113248654
@@ -44,22 +45,28 @@ Noise
 					t1 = 0.5 - x1 * x1 - y1 * y1
 					t2 = 0.5 - x2 * x2 - y2 * y2
 
-				if (t0 < 0) n0 = 0.0
+				if(t0 < 0)
+					t0 = 0.0
+
 				else
 					t0 *= t0
-					n0 = t0 * t0 * (__simplex_grad2_lut[g1 + 1] * x0 + __simplex_grad2_lut[g1 + 2] * y0)
+					t0 = t0 * t0 * (__simplex_grad2_lut[g1 + 1] * x0 + __simplex_grad2_lut[g1 + 2] * y0)
 
-				if (t1 < 0) n1 = 0.0
+				if(t1 < 0)
+					t1 = 0.0
+
 				else
 					t1 *= t1
-					n1 = t1 * t1 * (__simplex_grad2_lut[g2 + 1] * x1 + __simplex_grad2_lut[g2 + 2] * y1)
+					t1 = t1 * t1 * (__simplex_grad2_lut[g2 + 1] * x1 + __simplex_grad2_lut[g2 + 2] * y1)
 
-				if(t2 < 0) n2 = 0.0
+				if(t2 < 0)
+					t2 = 0.0
+
 				else
 					t2 *= t2
-					n2 = t2 * t2 * (__simplex_grad2_lut[g3 + 1] * x2 + __simplex_grad2_lut[g3 + 2] * y2)
+					t2 = t2 * t2 * (__simplex_grad2_lut[g3 + 1] * x2 + __simplex_grad2_lut[g3 + 2] * y2)
 
-				return 70.0 * (n0 + n1 + n2)
+				return 70.0 * (t0 + t1 + t2)
 
 			get3(x, y, z)
 				if(SIGNAL_USE_DLL)
@@ -70,11 +77,6 @@ Noise
 				z += seed
 
 				var
-					n0
-					n1
-					n2
-					n3
-
 					s = (x + y + z) * 0.33333333333
 					i = round(x + s)
 					j = round(y + s)
@@ -93,14 +95,54 @@ Noise
 					k2
 
 				if(x0 >= y0)
-					if (y0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 1; k2 = 0; }
-					else if (x0 >= z0) { i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 0; k2 = 1; }
-					else { i1 = 0; j1 = 0; k1 = 1; i2 = 1; j2 = 0; k2 = 1; }
+					if(y0 >= z0)
+						i1 = 1
+						j1 = 0
+						k1 = 0
+						i2 = 1
+						j2 = 1
+						k2 = 0
+
+					else if(x0 >= z0)
+						i1 = 1
+						j1 = 0
+						k1 = 0
+						i2 = 1
+						j2 = 0
+						k2 = 1
+
+					else
+						i1 = 0
+						j1 = 0
+						k1 = 1
+						i2 = 1
+						j2 = 0
+						k2 = 1
 
 				else
-					if (y0 < z0) { i1 = 0; j1 = 0; k1 = 1; i2 = 0; j2 = 1; k2 = 1; }
-					else if (x0 < z0) { i1 = 0; j1 = 1; k1 = 0; i2 = 0; j2 = 1; k2 = 1; }
-					else { i1 = 0; j1 = 1; k1 = 0; i2 = 1; j2 = 1; k2 = 0; }
+					if(y0 < z0)
+						i1 = 0
+						j1 = 0
+						k1 = 1
+						i2 = 0
+						j2 = 1
+						k2 = 1
+
+					else if(x0 < z0)
+						i1 = 0
+						j1 = 1
+						k1 = 0
+						i2 = 0
+						j2 = 1
+						k2 = 1
+
+					else
+						i1 = 0
+						j1 = 1
+						k1 = 0
+						i2 = 1
+						j2 = 1
+						k2 = 0
 
 				var
 					x1 = x0 - i1 + 0.16666666666
@@ -127,24 +169,32 @@ Noise
 					t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2
 					t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3
 
-				if(t0 < 0) n0 = 0.0
+				if(t0 < 0)
+					t0 = 0.0
+
 				else
 					t0 *= t0
-					n0 = t0 * t0 * (__simplex_grad3_lut[g1 + 1] * x0 + __simplex_grad3_lut[g1 + 2] * y0 + __simplex_grad3_lut[g1 + 3] * z0)
+					t0 = t0 * t0 * (__simplex_grad3_lut[g1 + 1] * x0 + __simplex_grad3_lut[g1 + 2] * y0 + __simplex_grad3_lut[g1 + 3] * z0)
 
-				if(t1 < 0) n1 = 0.0
+				if(t1 < 0)
+					t1 = 0.0
+
 				else
 					t1 *= t1
-					n1 = t1 * t1 * (__simplex_grad3_lut[g2 + 1] * x1 + __simplex_grad3_lut[g2 + 2] * y1 + __simplex_grad3_lut[g2 + 3] * z1)
+					t1 = t1 * t1 * (__simplex_grad3_lut[g2 + 1] * x1 + __simplex_grad3_lut[g2 + 2] * y1 + __simplex_grad3_lut[g2 + 3] * z1)
 
-				if(t2 < 0) n2 = 0.0
+				if(t2 < 0)
+					t2 = 0.0
+
 				else
 					t2 *= t2
-					n2 = t2 * t2 * (__simplex_grad3_lut[g3 + 1] * x2 + __simplex_grad3_lut[g3 + 2] * y2 + __simplex_grad3_lut[g3 + 3] * z2)
+					t2 = t2 * t2 * (__simplex_grad3_lut[g3 + 1] * x2 + __simplex_grad3_lut[g3 + 2] * y2 + __simplex_grad3_lut[g3 + 3] * z2)
 
-				if(t3 < 0) n3 = 0.0
+				if(t3 < 0)
+					t3 = 0.0
+
 				else
 					t3 *= t3
-					n3 = t3 * t3 * (__simplex_grad3_lut[g4 + 1] * x3 + __simplex_grad3_lut[g4 + 2] * y3 + __simplex_grad3_lut[g4 + 3] * z3)
+					t3 = t3 * t3 * (__simplex_grad3_lut[g4 + 1] * x3 + __simplex_grad3_lut[g4 + 2] * y3 + __simplex_grad3_lut[g4 + 3] * z3)
 
-				return 32.0 * (n0 + n1 + n2 + n3)
+				return 32.0 * (t0 + t1 + t2 + t3)

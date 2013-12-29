@@ -6,7 +6,7 @@ Noise
 				y += seed
 				z += seed
 
-				. = 268435456
+				. = __MAX_VALUE
 				for(var/Noise/source in sources)
 					. = min(., source.get3(x, y, z))
 
@@ -14,6 +14,6 @@ Noise
 				x += seed
 				y += seed
 
-				. = 268435456
+				. = __MAX_VALUE
 				for(var/Noise/source in sources)
-					. = min(., source.get3(x, y))
+					. = min(., source.get2(x, y))
